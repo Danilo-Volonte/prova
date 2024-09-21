@@ -1,0 +1,77 @@
+// See https://aka.ms/new-console-template for more information
+
+using System.Runtime.CompilerServices;
+using System;
+using System.Collections.Generic;
+var rand = new Random(); // Dichiarazione di rand
+
+static void printaLettereParola(List<string> lettere, string parola)
+{
+    string letteraConfronto = "";
+    int LunghezzaLista = lettere.Count;
+    for (int i = 0; i < parola.Length; i++) //prende tutti gli elemnti dell lista
+    {
+        letteraConfronto = "";
+       for (int j = 0; j < LunghezzaLista;j++) // prende tutti gli elemnti della stringa
+        {
+            if (lettere[j] == parola[i].ToString()) // ToString serve a trasformare una caratere char in una stringa (un carattere char non è un stringa)
+            {
+                letteraConfronto = lettere[j];
+            }
+        }
+        int LunghezzaLetteraConfronto = letteraConfronto.Length;
+       if (LunghezzaLetteraConfronto > 0)
+        {
+            Console.Write(letteraConfronto);
+        }
+        else
+        {
+            Console.Write("*");
+        }
+ 
+    }
+}
+bool controlloLetteraLista(string letteraLista, List<string> LettereUtilizzate)
+{
+    for (int k = 0; k < LettereUtilizzate.Count; k++)
+    {
+        if (LettereUtilizzate[k]==letteraLista)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+List<string> listaParole = new List<string>
+        {
+            "Sostenibilità",
+            "Riconoscimento",
+            "Impressionante",
+            "Interdisciplinare",
+            "Responsabilità"
+        };
+
+List<string> lettere = new List<string> { };
+
+int numeroFrase = rand.Next(listaParole.Count); //genere un numero intero
+while (numeroFrase > 5 && numeroFrase < 0)
+{
+    numeroFrase = rand.Next(listaParole.Count); 
+}
+    string parolaCasuale = listaParole[numeroFrase];
+Console.WriteLine("frase: "+parolaCasuale);
+
+for (int i = 0; i< 3; i++)
+{
+    Console.Write("Inserisci una lettera che pensi che sia nella parola: ");
+    string lettera = Console.ReadLine();
+    int lunghezza = lettera.Length;
+    while (string.IsNullOrWhiteSpace(lettera) ||  lettera.Length != 1 || lettera.Any(char.IsDigit) ||  controlloLetteraLista(lettera, lettere)) // Controlla se già utilizzata se nell strigna non ci sono numeri
+    {
+        Console.Write("Inserisci le lettere che pensi che sano enlla parola (non più di 1): ");
+        lettera = Console.ReadLine();
+        lunghezza = lettera.Length;
+    }
+    lettere.Add(lettera);
+}
+printaLettereParola(lettere, parolaCasuale);
