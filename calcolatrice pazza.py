@@ -43,30 +43,88 @@ frasi_errore_numero = [
     "Ho bisogno di input numerici per fare il mio lavoro... non idee astratte!",
     "Sei creativo, ma la matematica ha bisogno di numeri!"
 ]
+
+frasiArrabiato = [
+    "Davvero avevi bisogno di aiuto per fare questa operazione? Che operazione di merda che mi hai fatto fare! Era così semplice che non te lo dovrei dire, ma il risultato è ",
+    "Non riesci a risolvere nemmeno questo? Che operazione di merda che mi hai fatto fare! Il risultato è ",
+    "Questo era un problema per te? Sul serio? Che operazione di merda che mi hai fatto fare! Il risultato è ",
+    "Hai chiesto aiuto per questa banalità? Che operazione di merda che mi hai fatto fare! Il risultato è ",
+    "Ma ti rendi conto di quanto fosse facile? Che operazione di merda che mi hai fatto fare! Il risultato è ",
+    "Non ci credo che hai avuto bisogno di aiuto per questo. Che operazione di merda che mi hai fatto fare! Il risultato è ",
+    "Hai davvero avuto bisogno di aiuto per questo? Povero me. Che operazione di merda che mi hai fatto fare! Il risultato è ",
+    "E pensavi che fosse difficile? Ma per favore. Che operazione di merda che mi hai fatto fare! Il risultato è "
+]
+
+frasiCalme = [
+    "Oh, tranquillo, non tutti riescono a farlo al primo tentativo. Il risultato comunque è ",
+    "Non preoccuparti, capita di sbagliare cose semplici. Il risultato è ",
+    "Sì, direi che potevi farcela da solo... Ma visto che ci sono, il risultato è ",
+    "Non era proprio una sfida difficile, ma ecco il risultato: ",
+    "Nessun problema, ci siamo passati tutti. Il risultato è ",
+    "Beh, la prossima volta ci riuscirai da solo, sono sicuro. Il risultato è ",
+    "Va bene, te lo dico lo stesso. Il risultato è ",
+    "Non c'era fretta, è normale chiedere aiuto. Il risultato è "
+]
+
+frasiPaura = [
+    "Oh no, spero di non sbagliare... il risultato è... oh mamma... è ",
+    "Sono un po' nervoso a dirtelo... ma ecco il risultato... spero che vada bene: ",
+    "Non sono sicuro di volerlo dire... ma il risultato è... ",
+    "Mi tremano le mani mentre te lo dico... il risultato è ",
+    "Questo è davvero inquietante... ma ok, il risultato è... ",
+    "Ti prego, non arrabbiarti... ma il risultato è ",
+    "Non so se voglio vedere cosa succede dopo... il risultato è ",
+    "Sto sudando freddo, ma... ecco il risultato: "
+]
+
+
 sino=["no","si"]
 operazioniLista=["somma","differenza","divisione", "moltiplicazione"]
 def operazioni(numero1, numero2, operazione):
     if operazione == "somma":
-        return numero1 + numero2 #finisci qua 
+        return numero1 + numero2 
+    elif operazione =="differenza":
+        return numero1-numero2
+    elif operazione =="divisione":
+        sn=input("vuoi avere un risultato con o senza virgola ")
+        while (sn != "con la virgola" or sn != "senza la virgola"):
+            sn=input("vuoi avere un risultato con o senza virgola ")
+        if (sn=="con la virgola"):
+            return numero1/numero2
+        elif (sn == "senza la virgola"):
+            return numero1//numero2
+    elif operazione == "moltiplicazione":
+        return numero1*numero2
+
+
+
+def emozioni(risultato):
+        if(risultato>0 and risultato<30):
+            return random.choice(frasiArrabiato)
+        elif(risultato>30 and risultato<1000):
+            return random.choice(frasiCalme)
+        elif(risultato>1000 or risultato<0):
+            return random.choice(frasiPaura)
+
+
 try:
     numeroUtente1=int(input("inserisci un numero "))
     numeroUtente2=int(input("inserisci un numero "))
-    operazioni=input("che operazione vuoi fare")
-    while operazioni not in operazioniLista:
+    operazionis=input("che operazione vuoi fare")
+    while operazionis not in operazioniLista:
         print("che cazzo hai messo, ti eìsempbra una operazione? Tranquillo ti do un'altra possibilità")
-        operazioni=input("che operazione vuoi fare")
-    fraseSiNo=random.sample(sino,1)
-    if fraseSiNo[0] == "si":
-        frase=random.sample(frasi_scherzose,1)   
-        print(frase[0], numeroUtente) 
-    elif fraseSiNo[0]=="no":
-        print("il risualtato è: ", numeroUtente)
+        operazionis=input("che operazione vuoi fare")
+    numeroUtente=operazioni(numeroUtente1,numeroUtente2,operazionis)
 
-#aggingi arriabitao, triste, felice  
+    frase=emozioni(numeroUtente)
+    print(frase, numeroUtente) 
+
 except ValueError:
     errore=random.sample(frasi_errore_numero,1)
     print(errore[0])
 
+
+        
 
 
 
